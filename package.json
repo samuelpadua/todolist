@@ -9,7 +9,9 @@
     "test": "jest --no-cache",
     "test:cov": "jest --coverage",
     "test:watch": "npm test -- --watch",
-    "deploy": "scripts/deploy"
+    "predeploy": "git checkout master && git reset --hard origin/master && git checkout gh-pages",
+    "deploy": "npm run build",
+    "postdeploy": "cp -r dist docs && git add . && git commit -m 'Update gh-pages' && git push -f"
   },
   "author": "Samuel Pádua",
   "license": "ISC",
