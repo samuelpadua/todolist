@@ -1,12 +1,12 @@
 import { filters } from '../../constants';
 
 
-const initialState = {
+export const initialState = {
   orderBy: filters.MOST_RECENT,
   showByStatus: filters.SHOW_ALL
 };
 
-const orderBy = (state = initialState, action) => {
+const filter = (state = initialState, action) => {
   switch (action.type) {
     case 'UPDATE_FILTERS':
       state[action.filter] = action.value
@@ -16,4 +16,4 @@ const orderBy = (state = initialState, action) => {
   }
 }
 
-export default orderBy;
+export default filter;

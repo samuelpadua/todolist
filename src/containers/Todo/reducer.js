@@ -1,5 +1,4 @@
 import moment from 'moment'
-import guid from '../../utils/guid';
 import orderByDate from '../../utils/orderByDate';
 import { filters } from '../../constants';
 import _ from 'lodash';
@@ -18,7 +17,7 @@ const applyFilters = (todos, filter) => {
         return t;
       }), filter.orderBy).sort((a, b) => a.completed === true)
     default:
-      throw new Error('Unknown filter: ' + filter)
+      return todos
   }
 }
 
@@ -28,7 +27,7 @@ const todos = (state = [], action) => {
       return [
         ...state,
         {
-          id: guid(),
+          id: (state.length + 1),
           text: action.text,
           completed: false,
           visible: true,
