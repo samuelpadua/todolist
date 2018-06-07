@@ -8,7 +8,8 @@
     "build": "webpack --mode production",
     "test": "jest --no-cache",
     "test:cov": "jest --coverage",
-    "test:watch": "npm test -- --watch"
+    "test:watch": "npm test -- --watch",
+    "deploy": "scripts/deploy"
   },
   "author": "Samuel Pádua",
   "license": "ISC",

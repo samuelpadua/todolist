@@ -1,0 +1,15 @@
+#!/bin/sh
+
+echo "===> Building app..."
+
+git checkout master && git reset --hard origin/master && git checkout gh-pages
+
+npm run build
+
+copy dist docs
+
+echo "===> Upload to GitHub Pages"
+
+git add . && git commit -m 'Update gh-pages' && git push -f
+
+echo "===> Finished"
