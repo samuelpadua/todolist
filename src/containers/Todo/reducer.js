@@ -2,6 +2,7 @@ import moment from 'moment'
 import orderByDate from '../../utils/orderByDate';
 import { filters } from '../../constants';
 import _ from 'lodash';
+import guid from '../../utils/guid';
 
 
 const applyFilters = (todos, filter) => {
@@ -27,7 +28,7 @@ const todos = (state = [], action) => {
       return [
         ...state,
         {
-          id: (state.length + 1),
+          id: guid(),
           text: action.text,
           completed: false,
           visible: true,

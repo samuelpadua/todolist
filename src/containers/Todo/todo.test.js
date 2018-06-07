@@ -5,10 +5,10 @@ import { filtes, filters } from '../../constants'
 
 const created_at = moment().format()
 const updated_at = moment().format()
-
+const uuid = ['b0f95eb4', 'f7a1f9d9']
 const mockTodos =[
   {
-    id: 1,
+    id: 'b0f95eb4',
     text: 'Todo Test 1',
     completed: false,
     visible: true,
@@ -16,7 +16,7 @@ const mockTodos =[
     updated_at
   },
   {
-    id: 2,
+    id: 'f7a1f9d9',
     text: 'Todo Test 2',
     completed: false,
     visible: true,
@@ -33,41 +33,43 @@ describe('todos reducer', () => {
   })
 
   it('should add new todo ADD_TODO', () => {
-    expect(
-      todos([], {
-        type: 'ADD_TODO',
-        text: 'Todo Test 1'
-      })
-    ).toEqual([mockTodos[0]])
+    let state = todos([], {
+      type: 'ADD_TODO',
+      text: 'Todo Test 1'
+    })
+    state[0].id = uuid[0]
+    expect(state).toEqual([mockTodos[0]])
   
-    expect(
-      todos([mockTodos[0]], {
-        type: 'ADD_TODO',
-        text: 'Todo Test 2'
-      })
-    ).toEqual(mockTodos)
+
+    state = todos([mockTodos[0]], {
+      type: 'ADD_TODO',
+      text: 'Todo Test 2'
+    })
+    state[1].id = uuid[1]
+    expect(state).toEqual(mockTodos)
   })
 
   it('should handle TOGGLE_TODO', () => {
     const mock = _.cloneDeep(mockTodos);
     mock[0].completed = true;
-    expect(
-      todos(mockTodos, {
-        type: 'COMPLETE_TODO',
-        id: 1
-      })
-    ).toEqual(mock.reverse())
+
+    const state = todos(mockTodos, {
+      type: 'COMPLETE_TODO',
+      id: uuid[0]
+    })
+
+    expect(state).toEqual(mock.reverse())
   })
 
   it('should handle DELETE_TODO', () => {
     const mock = _.cloneDeep(mockTodos);
+    const state = todos(mockTodos, {
+      type: 'DELETE_TODO',
+      id: uuid[0]
+    })
 
-    expect(
-      todos(mockTodos, {
-        type: 'DELETE_TODO',
-        id: 1
-      })
-    ).toEqual([mock[1]])
+    state[0].id = uuid[1]
+    expect(state).toEqual([mock[1]])
   })
 
   it('should handle APPLY_FILTERS with ALL', () => {
