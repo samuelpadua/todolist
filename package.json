@@ -11,7 +11,7 @@
     "test:watch": "npm test -- --watch",
     "predeploy": "git checkout master && git reset --hard origin/master && git checkout gh-pages",
     "deploy": "npm run build",
-    "postdeploy": "cp -r dist docs && git add . && git commit -m 'Update gh-pages' && git push -f"
+    "postdeploy": "git add . && git commit -m 'Update gh-pages' && git push -f"
   },
   "author": "Samuel Pádua",
   "license": "ISC",
