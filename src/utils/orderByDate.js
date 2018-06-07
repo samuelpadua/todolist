@@ -3,7 +3,7 @@ import { filters } from '../constants';
 
 
 const orderByDate = (todos = [], orderBy = filters.MOST_RECENT) => {
-  let ordered = todos.sort((a, b) => moment(a.created_at).diff(moment(b.created_at)));
+  let ordered = todos.sort((a, b) => moment(b.created_at).diff(moment(a.created_at)));
   if (orderBy === filters.MOST_OLDER) {
     return ordered.reverse();
   }

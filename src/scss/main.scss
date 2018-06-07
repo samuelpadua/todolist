@@ -1,0 +1,10 @@
+@import './reset';
+@import './variables';
+@import './general';
+
+/** COMPONENTS */
+@import '../components/Wrapper/Wrapper';
+@import '../components/Header/Header';
+@import '../components/AddTaskInput/AddTaskInput';
+@import '../components/Filters/Filters';
+@import '../components/List/List';
