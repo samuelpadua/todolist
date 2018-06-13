@@ -4,8 +4,8 @@
   "description": "App To Do list with React",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open --hot",
-    "build": "webpack --mode production",
+    "start": "NODE_ENV=development webpack-dev-server --mode development --open --hot",
+    "build": "NODE_ENV=production webpack --mode production",
     "test": "jest --no-cache",
     "test:cov": "jest --coverage",
     "test:watch": "npm test -- --watch",
@@ -36,7 +36,6 @@
   },
   "dependencies": {
     "lodash": "^4.17.10",
-    "moment": "^2.22.2",
     "prop-types": "^15.6.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",

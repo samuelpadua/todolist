@@ -1,6 +1,7 @@
-const addTodo = text => ({
+const addTodo = (text, filters) => ({
   type: 'ADD_TODO',
-  text
+  text,
+  filters
 });
 
 const completeTodo = id => ({

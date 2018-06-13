@@ -7,7 +7,7 @@ import { filters } from '../../constants';
 import localStorage from '../../utils/localStorage';
 
 const updateTodoLocalStorage = todos => {
-  localStorage.put('todos', todos);
+  localStorage.put('tasks', todos);
 };
 
 const handleCompleteTodo = id => (dispatch, getState) => {

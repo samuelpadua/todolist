@@ -8,7 +8,7 @@ import { Reducers } from './reducers';
 import localStorage from '../utils/localStorage';
 
 const initialState = {
-  todos: localStorage.get('todos') || []
+  todos: localStorage.get('tasks') || []
 };
 
 const enhancers = [];
@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === 'development') {
 
 const finalCreateStore = compose(
   applyMiddleware(thunk),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  process.env.NODE_ENV !== 'production' && window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore)
 
 const store = finalCreateStore(

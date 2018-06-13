@@ -1,12 +1,11 @@
 import todos from './reducer'
-import moment from 'moment'
 import _ from 'lodash'
 import { filtes, filters } from '../../constants'
 
-const created_at = moment().format()
-const updated_at = moment().format()
+const created_at = new Date()
+const updated_at = new Date()
 const uuid = ['b0f95eb4', 'f7a1f9d9']
-const mockTodos =[
+const mockTodos = [
   {
     id: 'b0f95eb4',
     text: 'Todo Test 1',
@@ -25,6 +24,34 @@ const mockTodos =[
   }
 ]
 
+const generateMock = () => ([
+  {
+    id: 'b0f95eb4',
+    text: 'Todo Test 1',
+    completed: false,
+    visible: true,
+    created_at: new Date(),
+    updated_at: new Date()
+  },
+  {
+    id: 'f7a1f9d9',
+    text: 'Todo Test 2',
+    completed: false,
+    visible: true,
+    created_at: new Date(),
+    updated_at: new Date()
+  }
+])
+
+const updateState = (state, mock) => {
+  return state.map((task, i) => {
+    task.id = mock[i].id;
+    task.created_at = mock[i].created_at;
+    task.updated_at = mock[i].updated_at;
+    return task;
+  })
+}
+
 describe('todos reducer', () => {
   it('should start initial state', () => {
     expect(
@@ -33,42 +60,44 @@ describe('todos reducer', () => {
   })
 
   it('should add new todo ADD_TODO', () => {
+    let mock = generateMock();
     let state = todos([], {
       type: 'ADD_TODO',
       text: 'Todo Test 1'
     })
-    state[0].id = uuid[0]
-    expect(state).toEqual([mockTodos[0]])
-  
+    state = updateState(state, mock);
 
-    state = todos([mockTodos[0]], {
+    expect(state).toEqual([mock[0]])
+
+    state = todos([mock[0]], {
       type: 'ADD_TODO',
       text: 'Todo Test 2'
     })
-    state[1].id = uuid[1]
-    expect(state).toEqual(mockTodos)
+    state = updateState(state, mock);
+
+    expect(state).toEqual(mock)
   })
 
   it('should handle TOGGLE_TODO', () => {
-    const mock = _.cloneDeep(mockTodos);
+    const mock = generateMock();
     mock[0].completed = true;
 
-    const state = todos(mockTodos, {
+    let state = todos(mockTodos, {
       type: 'COMPLETE_TODO',
       id: uuid[0]
     })
+    state = updateState(state, mock);    
 
-    expect(state).toEqual(mock.reverse())
+    expect(state).toEqual(mock)
   })
 
   it('should handle DELETE_TODO', () => {
     const mock = _.cloneDeep(mockTodos);
-    const state = todos(mockTodos, {
+    let state = todos(mockTodos, {
       type: 'DELETE_TODO',
       id: uuid[0]
     })
 
-    state[0].id = uuid[1]
     expect(state).toEqual([mock[1]])
   })
 
@@ -82,18 +111,15 @@ describe('todos reducer', () => {
       }
     })
 
-    mock.forEach((m, i) => {
-      m.created_at = state[i].created_at
-      m.updated_at = state[i].updated_at
-    })
-    expect(state).toEqual(mock.reverse())
+    state = updateState(state, mock);
+    expect(state).toEqual(mock)
   })
 
   it('should handle APPLY_FILTERS only CONCLUDED tasks', () => {
     let mock = _.cloneDeep(mockTodos);
     
     mock[0].completed = true
-    const state = todos(mock, {
+    let state = todos(mock, {
       type: 'APPLY_FILTERS',
       filters: {
         orderBy: filters.MOST_RECENT,
@@ -101,10 +127,7 @@ describe('todos reducer', () => {
       }
     })
 
-    mock.reverse().forEach((m, i) => {
-      m.created_at = state[i].created_at
-      m.updated_at = state[i].updated_at
-    })
+    state = updateState(state, mock);
     expect(state).toEqual(mock)
   })
 

@@ -23,16 +23,22 @@ const List = ({
   <ul className="TodoList">
     {
       todos
-      .map(task => task.visible && (
-        <Task key={task.id} deleteTodo={deleteTodo} completeTodo={completeTodo} {...task} />
-      ))
+        .map(task => task.visible && (
+          !task.completed && <Task key={task.id} deleteTodo={deleteTodo} completeTodo={completeTodo} {...task} />
+        ))
+    }
+    {
+      todos
+        .map(task => task.visible && (
+          task.completed && <Task key={task.id} deleteTodo={deleteTodo} completeTodo={completeTodo} {...task} />
+        ))
     }
   </ul>
 );
 
 List.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
       completed: PropTypes.bool.isRequired,
       created_at: PropTypes.string.isRequired,

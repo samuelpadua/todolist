@@ -1,12 +1,13 @@
-import moment from 'moment';
 import { filters } from '../constants';
 
 
 const orderByDate = (todos = [], orderBy = filters.MOST_RECENT) => {
-  let ordered = todos.sort((a, b) => moment(b.created_at).diff(moment(a.created_at)));
-  if (orderBy === filters.MOST_OLDER) {
-    return ordered.reverse();
-  }
+  const desc = (a, b) => new Date(b.created_at) - new Date(a.created_at);
+  const asc = (a, b) => new Date(a.created_at) - new Date(b.created_at);
+
+  const order = orderBy === filters.MOST_OLDER ? asc : desc;
+
+  const ordered = todos.sort(order);
 
   return ordered;
 };

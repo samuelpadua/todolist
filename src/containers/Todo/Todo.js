@@ -19,8 +19,8 @@ const TodoContainer = ({
 );
 
 const handleAddTodo = value => (dispatch, getState) =>  {
-  dispatch(addTodo(value));
-  localStorage.put('todos', getState().todos);
+  dispatch(addTodo(value, getState().filters));
+  localStorage.put('tasks', getState().todos);
 };
 
 const mapStateToProps = (state) => state;

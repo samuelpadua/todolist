@@ -1,22 +1,21 @@
-import moment from 'moment'
 import orderByDate from '../../utils/orderByDate';
 import { filters } from '../../constants';
 import _ from 'lodash';
 import guid from '../../utils/guid';
 
 
-const applyFilters = (todos, filter) => {
+const applyFilters = (todos, filter = {}) => {
   switch (filter.showByStatus) {
     case filters.SHOW_ALL:
       return orderByDate(todos.map(t => {
         t.visible = true
         return t;
-      }), filter.orderBy).sort((a, b) => a.completed === true)
+      }), filter.orderBy)
     case filters.SHOW_COMPLETED:
       return orderByDate(todos.map(t => {
         t.visible = t.completed;
         return t;
-      }), filter.orderBy).sort((a, b) => a.completed === true)
+      }), filter.orderBy)
     default:
       return todos
   }
@@ -25,25 +24,25 @@ const applyFilters = (todos, filter) => {
 const todos = (state = [], action) => {
   switch (action.type) {
     case 'ADD_TODO':
-      return [
+      return applyFilters([
         ...state,
         {
           id: guid(),
           text: action.text,
           completed: false,
           visible: true,
-          updated_at: moment().format(),
-          created_at: moment().format()
+          updated_at: new Date(),
+          created_at: new Date(),
         }
-      ].sort((a, b) => a.completed === true)
+      ], action.filters);
     case 'COMPLETE_TODO':
       return state.map(todo => {
         if (todo.id === action.id) {
           todo.completed = !todo.completed;
-          todo.updated_at = moment().format();
+          todo.updated_at = new Date();
         }
         return todo;
-      }).sort((a, b) => a.completed === true);
+      })
     case 'DELETE_TODO':
       return state.filter(todo => todo.id !== action.id);
     case 'APPLY_FILTERS':
