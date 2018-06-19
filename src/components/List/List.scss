@@ -1,12 +1,58 @@
 .TodoList__item {
-  margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-.TodoList__item {
+  display: block;
   position: relative;
-	font-size: 24px;
+  padding-left: 35px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    border: 1px solid $gray;
+
+    &:checked ~ .TodoList__check {
+      border: 1px solid $green-light;
+    }
+
+    &:checked ~ .TodoList__check:after {
+      display: block;
+    }
+  }
+
+  .TodoList__check {
+    position: absolute;
+    top: 7px;
+    left: 10px;
+    height: 35px;
+    width: 35px;
+    background-color: #eee;
+    border-radius: 50%;
+    border: 1px solid $gray;
+  }
+
+  .TodoList__check:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  .TodoList__check:after {
+    left: 13px;
+    top: 5px;
+    width: 7px;
+    height: 19px;
+    border: solid $green;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
   border-bottom: 1px solid #ededed;
   
   &:hover .TodoList__remove {
@@ -20,9 +66,8 @@
 
 .TodoList__label {
   white-space: pre;
-	word-break: break-word;
-	padding: 15px 60px 15px 15px;
-	margin-left: 45px;
+	padding: 15px 60px 15px 0;
+	margin-left: 30px;
 	display: block;
 	line-height: 1.2;
 	transition: color 0.4s;
@@ -56,33 +101,5 @@
 
   &::after {
     content: 'X';
-  }
-}
-
-.TodoList__toggle {
-  text-align: center;
-	width: 40px;
-	
-	height: auto;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	margin: auto 0;
-	border: none; 
-	-webkit-appearance: none;
-  appearance: none;
-  cursor: pointer;
-  margin-top: 0.7em;
-
-  &::after {
-    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#8C8C8C" stroke-width="3"/></svg>');
-  }
-
-  &:checked:after {
-    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
-  }
-
-  &:focus {
-    outline: none;
   }
 }

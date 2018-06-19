@@ -9,8 +9,9 @@ const Task = ({
   deleteTodo
 }) => (
   <li className="TodoList__item">
-    <input className="TodoList__toggle" type="checkbox" onChange={(e) => completeTodo(id)} checked={completed} />
     <label className={`TodoList__label ${completed && 'TodoList__label-completed'}`}>{text}</label>
+    <input type="checkbox" checked={completed} readOnly />
+    <span className="TodoList__check" onClick={(e) => completeTodo(id)}></span>
     <button className="TodoList__remove" onClick={() => deleteTodo(id)}></button>
   </li>
 );
