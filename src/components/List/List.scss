@@ -26,10 +26,10 @@
 
   .TodoList__check {
     position: absolute;
-    top: 7px;
+    top: 12px;
     left: 10px;
-    height: 35px;
-    width: 35px;
+    height: 30px;
+    width: 30px;
     background-color: #eee;
     border-radius: 50%;
     border: 1px solid $gray;
@@ -42,10 +42,10 @@
   }
   
   .TodoList__check:after {
-    left: 13px;
-    top: 5px;
-    width: 7px;
-    height: 19px;
+    left: 11px;
+    top: 4px;
+    width: 5px;
+    height: 18px;
     border: solid $green;
     border-width: 0 3px 3px 0;
     -webkit-transform: rotate(45deg);
